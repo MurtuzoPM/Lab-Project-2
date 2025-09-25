@@ -21,7 +21,3 @@ It features a modern dark theme, interactive assignment cards, and individual ex
 ## Author
 
 Created by Mamadziyoev Murtuzo
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
