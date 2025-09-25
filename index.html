@@ -5,807 +5,958 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assignments Dashboard</title>
     <style>
-        /* ...existing code... */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #181c24;
-    color: #eaeaea;
-}
-header {
-    background: #23272f;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-.dashboard, .exercise-page {
-    padding: 30px;
-}
-.section {
-    background: #23272f;
-    border-radius: 12px;
-    padding: 25px;
-    margin-bottom: 35px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-}
-h2 {
-    color: #eaeaea;
-    margin-bottom: 18px;
-}
-.assignments {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 18px;
-}
-.assignment {
-    background: #181c24;
-    padding: 18px 0;
-    border: 1px solid #2c3240;
-    border-radius: 8px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.18s, background 0.22s, box-shadow 0.22s;
-    color: #eaeaea;
-    font-weight: 500;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-}
-.assignment:hover {
-    background: #23272f;
-    transform: scale(1.04);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-    border-color: #3a405a;
-}
-.exercise-page {
-    background: #23272f;
-    border-radius: 12px;
-    padding: 30px;
-    margin: 30px auto;
-    max-width: 500px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-    display: none;
-    color: #eaeaea;
-}
-.exercise-page.active {
-    display: block;
-}
-button {
-    margin-top: 20px;
-    padding: 10px 18px;
-    background: #23272f;
-    color: #eaeaea;
-    border: 1px solid #2c3240;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.2s, border-color 0.2s;
-}
-button:hover {
-    background: #3a405a;
-    border-color: #3a405a;
-}
-input, select {
-    background: #181c24;
-    color: #eaeaea;
-    border: 1px solid #2c3240;
-    border-radius: 6px;
-    padding: 8px;
-    margin: 5px 0;
-}
-table {
-    background: #181c24;
-    color: #eaeaea;
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 15px;
-}
-th, td {
-    border: 1px solid #2c3240;
-    padding: 8px 12px;
-    text-align: left;
-}
-pre {
-    background: #181c24;
-    color: #eaeaea;
-    border-radius: 6px;
-    padding: 10px;
-    border: 1px solid #2c3240;
-}
-/* ...existing code... */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #181c24;
+            color: #eaeaea;
+        }
+        header {
+            background: #23272f;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .dashboard, .exercise-page {
+            padding: 30px;
+        }
+        .section {
+            background: #23272f;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 35px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+        }
+        h2 {
+            color: #eaeaea;
+            margin-bottom: 18px;
+        }
+        .assignments {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 18px;
+        }
+        .assignment {
+            background: #181c24;
+            padding: 18px 0;
+            border: 1px solid #2c3240;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.18s, background 0.22s, box-shadow 0.22s;
+            color: #eaeaea;
+            font-weight: 500;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+        .assignment:hover {
+            background: #23272f;
+            transform: scale(1.04);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+            border-color: #3a405a;
+        }
+        .exercise-page {
+            background: #23272f;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 500px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+            display: none;
+            color: #eaeaea;
+        }
+        .exercise-page.active {
+            display: block;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: #23272f;
+            color: #eaeaea;
+            border: 1px solid #2c3240;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        button:hover {
+            background: #3a405a;
+            border-color: #3a405a;
+        }
+        input, select, textarea {
+            background: #181c24;
+            color: #eaeaea;
+            border: 1px solid #2c3240;
+            border-radius: 6px;
+            padding: 8px;
+            margin: 5px 0;
+        }
+        table {
+            background: #181c24;
+            color: #eaeaea;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        th, td {
+            border: 1px solid #2c3240;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        pre {
+            background: #181c24;
+            color: #eaeaea;
+            border-radius: 6px;
+            padding: 10px;
+            border: 1px solid #2c3240;
+        }
+        footer {
+            background: #23272f;
+            color: #eaeaea;
+            text-align: center;
+            padding: 18px 0;
+            font-size: 1.1rem;
+            border-top: 1px solid #2c3240;
+            margin-top: 40px;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.12);
+        }
+        @media (max-width: 600px) {
+            .assignments {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            .exercise-page {
+                padding: 20px;
+                max-width: 90%;
+            }
+        }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Assignments Dashboard</h1>
+    </header>
 
-<header>
-    <h1>Assignments Dashboard</h1>
-</header>
+    <div class="dashboard" id="dashboard">
+        <div class="section">
+            <h2>Section 1: HTML Basics</h2>
+            <div class="assignments">
+                <div class="assignment" onclick="showExercise(1)">Assignment 1</div>
+                <div class="assignment" onclick="showExercise(2)">Assignment 2</div>
+                <div class="assignment" onclick="showExercise(3)">Assignment 3</div>
+                <div class="assignment" onclick="showExercise(4)">Assignment 4</div>
+                <div class="assignment" onclick="showExercise(5)">Assignment 5</div>
+                <div class="assignment" onclick="showExercise(6)">Assignment 6</div>
+                <div class="assignment" onclick="showExercise(7)">Assignment 7</div>
+                <div class="assignment" onclick="showExercise(8)">Assignment 8</div>
+                <div class="assignment" onclick="showExercise(9)">Assignment 9</div>
+                <div class="assignment" onclick="showExercise(10)">Assignment 10</div>
+                <div class="assignment" onclick="showExercise(11)">Assignment 11</div>
+                <div class="assignment" onclick="showExercise(12)">Assignment 12</div>
+                <div class="assignment" onclick="showExercise(13)">Assignment 13</div>
+                <div class="assignment" onclick="showExercise(14)">Assignment 14</div>
+                <div class="assignment" onclick="showExercise(15)">Assignment 15</div>
+                <div class="assignment" onclick="showExercise(16)">Assignment 16</div>
+                <div class="assignment" onclick="showExercise(17)">Assignment 17</div>
+                <div class="assignment" onclick="showExercise(18)">Assignment 18</div>
+                <div class="assignment" onclick="showExercise(19)">Assignment 19</div>
+                <div class="assignment" onclick="showExercise(20)">Assignment 20</div>
+            </div>
+        </div>
 
-<div class="dashboard" id="dashboard">
-    <div class="section">
-        <h2>Section 1</h2>
-        <div class="assignments">
-            <div class="assignment" onclick="showExercise(1)">Assignment 1</div>
-            <div class="assignment" onclick="showExercise(2)">Assignment 2</div>
-            <div class="assignment" onclick="showExercise(3)">Assignment 3</div>
-            <div class="assignment" onclick="showExercise(4)">Assignment 4</div>
-            <div class="assignment" onclick="showExercise(5)">Assignment 5</div>
-            <div class="assignment" onclick="showExercise(6)">Assignment 6</div>
-            <div class="assignment" onclick="showExercise(7)">Assignment 7</div>
-            <div class="assignment" onclick="showExercise(8)">Assignment 8</div>
-            <div class="assignment" onclick="showExercise(9)">Assignment 9</div>
-            <div class="assignment" onclick="showExercise(10)">Assignment 10</div>
-            <div class="assignment" onclick="showExercise(11)">Assignment 11</div>
-            <div class="assignment" onclick="showExercise(12)">Assignment 12</div>
-            <div class="assignment" onclick="showExercise(13)">Assignment 13</div>
-            <div class="assignment" onclick="showExercise(14)">Assignment 14</div>
-            <div class="assignment" onclick="showExercise(15)">Assignment 15</div>
-            <div class="assignment" onclick="showExercise(16)">Assignment 16</div>
-            <div class="assignment" onclick="showExercise(17)">Assignment 17</div>
-            <div class="assignment" onclick="showExercise(18)">Assignment 18</div>
-            <div class="assignment" onclick="showExercise(19)">Assignment 19</div>
-            <div class="assignment" onclick="showExercise(20)">Assignment 20</div>
+        <div class="section">
+            <h2>Section 2: CSS Styling</h2>
+            <div class="assignments">
+                <div class="assignment" onclick="showExercise(21)">Assignment 21</div>
+                <div class="assignment" onclick="showExercise(22)">Assignment 22</div>
+                <div class="assignment" onclick="showExercise(23)">Assignment 23</div>
+                <div class="assignment" onclick="showExercise(24)">Assignment 24</div>
+                <div class="assignment" onclick="showExercise(25)">Assignment 25</div>
+                <div class="assignment" onclick="showExercise(26)">Assignment 26</div>
+                <div class="assignment" onclick="showExercise(27)">Assignment 27</div>
+                <div class="assignment" onclick="showExercise(28)">Assignment 28</div>
+                <div class="assignment" onclick="showExercise(29)">Assignment 29</div>
+                <div class="assignment" onclick="showExercise(30)">Assignment 30</div>
+                <div class="assignment" onclick="showExercise(31)">Assignment 31</div>
+                <div class="assignment" onclick="showExercise(32)">Assignment 32</div>
+                <div class="assignment" onclick="showExercise(33)">Assignment 33</div>
+                <div class="assignment" onclick="showExercise(34)">Assignment 34</div>
+                <div class="assignment" onclick="showExercise(35)">Assignment 35</div>
+                <div class="assignment" onclick="showExercise(36)">Assignment 36</div>
+                <div class="assignment" onclick="showExercise(37)">Assignment 37</div>
+                <div class="assignment" onclick="showExercise(38)">Assignment 38</div>
+                <div class="assignment" onclick="showExercise(39)">Assignment 39</div>
+                <div class="assignment" onclick="showExercise(40)">Assignment 40</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Section 3: JavaScript Practice</h2>
+            <div class="assignments">
+                <div class="assignment" onclick="showExercise(41)">Assignment 41</div>
+                <div class="assignment" onclick="showExercise(42)">Assignment 42</div>
+                <div class="assignment" onclick="showExercise(43)">Assignment 43</div>
+                <div class="assignment" onclick="showExercise(44)">Assignment 44</div>
+                <div class="assignment" onclick="showExercise(45)">Assignment 45</div>
+                <div class="assignment" onclick="showExercise(46)">Assignment 46</div>
+                <div class="assignment" onclick="showExercise(47)">Assignment 47</div>
+                <div class="assignment" onclick="showExercise(48)">Assignment 48</div>
+                <div class="assignment" onclick="showExercise(49)">Assignment 49</div>
+                <div class="assignment" onclick="showExercise(50)">Assignment 50</div>
+                <div class="assignment" onclick="showExercise(51)">Assignment 51</div>
+                <div class="assignment" onclick="showExercise(52)">Assignment 52</div>
+                <div class="assignment" onclick="showExercise(53)">Assignment 53</div>
+                <div class="assignment" onclick="showExercise(54)">Assignment 54</div>
+                <div class="assignment" onclick="showExercise(55)">Assignment 55</div>
+                <div class="assignment" onclick="showExercise(56)">Assignment 56</div>
+                <div class="assignment" onclick="showExercise(57)">Assignment 57</div>
+                <div class="assignment" onclick="showExercise(58)">Assignment 58</div>
+                <div class="assignment" onclick="showExercise(59)">Assignment 59</div>
+                <div class="assignment" onclick="showExercise(60)">Assignment 60</div>
+            </div>
         </div>
     </div>
 
-    <div class="section">
-        <h2>Section 2</h2>
-        <div class="assignments">
-            <div class="assignment" onclick="showExercise(21)">Assignment 1</div>
-            <div class="assignment" onclick="showExercise(22)">Assignment 2</div>
-            <div class="assignment" onclick="showExercise(23)">Assignment 3</div>
-            <div class="assignment" onclick="showExercise(24)">Assignment 4</div>
-            <div class="assignment" onclick="showExercise(25)">Assignment 5</div>
-            <div class="assignment" onclick="showExercise(26)">Assignment 6</div>
-            <div class="assignment" onclick="showExercise(27)">Assignment 7</div>
-            <div class="assignment" onclick="showExercise(28)">Assignment 8</div>
-            <div class="assignment" onclick="showExercise(29)">Assignment 9</div>
-            <div class="assignment" onclick="showExercise(30)">Assignment 10</div>
-            <div class="assignment" onclick="showExercise(31)">Assignment 11</div>
-            <div class="assignment" onclick="showExercise(32)">Assignment 12</div>
-            <div class="assignment" onclick="showExercise(33)">Assignment 13</div>
-            <div class="assignment" onclick="showExercise(34)">Assignment 14</div>
-            <div class="assignment" onclick="showExercise(35)">Assignment 15</div>
-            <div class="assignment" onclick="showExercise(36)">Assignment 16</div>
-            <div class="assignment" onclick="showExercise(37)">Assignment 17</div>
-            <div class="assignment" onclick="showExercise(38)">Assignment 18</div>
-            <div class="assignment" onclick="showExercise(39)">Assignment 19</div>
-            <div class="assignment" onclick="showExercise(40)">Assignment 20</div>
+    <!-- Exercise Pages -->
+    <div id="exercises">
+        <!-- Section 1: HTML Basics (1–20) -->
+        <div class="exercise-page" id="exercise1">
+            <h2>Exercise 1: Basic HTML Page</h2>
+            <p>
+                <b>Title:</b> My First Webpage<br>
+                <b>Heading:</b> <h1>Hello, World!</h1>
+            </p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
         </div>
-    </div>
 
-    <div class="section">
-        <h2>Section 3</h2>
-        <div class="assignments">
-            <div class="assignment" onclick="showExercise(41)">Assignment 1</div>
-            <div class="assignment" onclick="showExercise(42)">Assignment 2</div>
-            <div class="assignment" onclick="showExercise(43)">Assignment 3</div>
-            <div class="assignment" onclick="showExercise(44)">Assignment 4</div>
-            <div class="assignment" onclick="showExercise(45)">Assignment 5</div>
-            <div class="assignment" onclick="showExercise(46)">Assignment 6</div>
-            <div class="assignment" onclick="showExercise(47)">Assignment 7</div>
-            <div class="assignment" onclick="showExercise(48)">Assignment 8</div>
-            <div class="assignment" onclick="showExercise(49)">Assignment 9</div>
-            <div class="assignment" onclick="showExercise(50)">Assignment 10</div>
-            <div class="assignment" onclick="showExercise(51)">Assignment 11</div>
-            <div class="assignment" onclick="showExercise(52)">Assignment 12</div>
-            <div class="assignment" onclick="showExercise(53)">Assignment 13</div>
-            <div class="assignment" onclick="showExercise(54)">Assignment 14</div>
-            <div class="assignment" onclick="showExercise(55)">Assignment 15</div>
-            <div class="assignment" onclick="showExercise(56)">Assignment 16</div>
-            <div class="assignment" onclick="showExercise(57)">Assignment 17</div>
-            <div class="assignment" onclick="showExercise(58)">Assignment 18</div>
-            <div class="assignment" onclick="showExercise(59)">Assignment 19</div>
-            <div class="assignment" onclick="showExercise(60)">Assignment 20</div>
+        <div class="exercise-page" id="exercise2">
+            <h2>Exercise 2: Add Paragraphs</h2>
+            <p>Paragraph 1: This is the first paragraph.</p>
+            <p>Paragraph 2: Here is another paragraph with different text.</p>
+            <p>Paragraph 3: This is the third paragraph, also unique.</p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
         </div>
-    </div>
-</div>
 
-<!-- 60 Exercise Pages -->
-<div id="exercises">
-    <!-- Section 1: HTML Basics (1–20) -->
-    <!-- ==================== Exercises 1-10 ==================== -->
-
-<div class="exercise-page" id="exercise1">
-    <h2>Exercise 1: Alert Message</h2>
-    <p>Show an alert when a button is clicked.</p>
-    <button onclick="alert('Hello! This is Exercise 1')">Click Me</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise2">
-    <h2>Exercise 2: Change Background Color</h2>
-    <p>Click the button to change the background color.</p>
-    <button onclick="document.body.style.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16)">Change Background</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise3">
-    <h2>Exercise 3: Change Heading Text</h2>
-    <p>Click the heading to change its text.</p>
-    <h3 id="heading3" onclick="this.innerText='Text Changed!'">Click Me!</h3>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise4">
-    <h2>Exercise 4: Simple Calculator - Add</h2>
-    <p>Add two numbers and show result.</p>
-    <input type="number" id="num4a" placeholder="First number">
-    <input type="number" id="num4b" placeholder="Second number">
-    <button onclick="document.getElementById('res4').innerText = 'Result: '+(parseFloat(document.getElementById('num4a').value)+parseFloat(document.getElementById('num4b').value))">Add</button>
-    <p id="res4"></p>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise5">
-    <h2>Exercise 5: Simple Calculator - Subtract</h2>
-    <p>Subtract two numbers and show result.</p>
-    <input type="number" id="num5a" placeholder="First number">
-    <input type="number" id="num5b" placeholder="Second number">
-    <button onclick="document.getElementById('res5').innerText = 'Result: '+(parseFloat(document.getElementById('num5a').value)-parseFloat(document.getElementById('num5b').value))">Subtract</button>
-    <p id="res5"></p>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise6">
-    <h2>Exercise 6: Toggle Visibility</h2>
-    <p>Click the button to hide/show the paragraph.</p>
-    <p id="para6">This is a toggle paragraph.</p>
-    <button onclick="var p=document.getElementById('para6'); p.style.display=(p.style.display==='none'?'block':'none')">Toggle Paragraph</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise7">
-    <h2>Exercise 7: Change Text Color</h2>
-    <p>Click the button to change text color of this paragraph.</p>
-    <p id="para7">This text will change color.</p>
-    <button onclick="document.getElementById('para7').style.color = '#'+Math.floor(Math.random()*16777215).toString(16)">Change Color</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise8">
-    <h2>Exercise 8: Add Item to List</h2>
-    <p>Click the button to add a new item to the list.</p>
-    <ul id="list8">
-        <li>Item 1</li>
-        <li>Item 2</li>
-    </ul>
-    <button onclick="var li=document.createElement('li'); li.innerText='New Item'; document.getElementById('list8').appendChild(li)">Add Item</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise9">
-    <h2>Exercise 9: Remove Last Item from List</h2>
-    <p>Click the button to remove last item from the list.</p>
-    <ul id="list9">
-        <li>Apple</li>
-        <li>Banana</li>
-        <li>Cherry</li>
-    </ul>
-    <button onclick="var list=document.getElementById('list9'); if(list.lastChild) list.removeChild(list.lastChild)">Remove Last Item</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise10">
-    <h2>Exercise 10: Image Swap</h2>
-    <p>Click the button to swap image.</p>
-    <img id="img10" src="https://via.placeholder.com/150" alt="Placeholder">
-    <br>
-    <button onclick="document.getElementById('img10').src='https://via.placeholder.com/150/ff0000'">Swap Image</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<!-- ==================== Exercises 11-20 ==================== -->
-
-<div class="exercise-page" id="exercise11">
-    <h2>Exercise 11: Change Font Size</h2>
-    <p>Click the button to increase font size of the paragraph.</p>
-    <p id="para11">This paragraph will grow in size.</p>
-    <button onclick="var p=document.getElementById('para11'); p.style.fontSize=(parseInt(window.getComputedStyle(p).fontSize)+2)+'px'">Increase Font</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise12">
-    <h2>Exercise 12: Display Current Date</h2>
-    <p>Click the button to show current date and time.</p>
-    <button onclick="document.getElementById('res12').innerText=new Date()">Show Date</button>
-    <p id="res12"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise13">
-    <h2>Exercise 13: Hide Image</h2>
-    <p>Click the button to hide the image.</p>
-    <img id="img13" src="https://via.placeholder.com/150" alt="Placeholder">
-    <br>
-    <button onclick="document.getElementById('img13').style.display='none'">Hide Image</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise14">
-    <h2>Exercise 14: Show Hidden Paragraph</h2>
-    <p id="para14" style="display:none">This paragraph was hidden, now visible!</p>
-    <button onclick="document.getElementById('para14').style.display='block'">Show Paragraph</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise15">
-    <h2>Exercise 15: Multiply Numbers</h2>
-    <p>Multiply two numbers and show the result.</p>
-    <input type="number" id="num15a" placeholder="First number">
-    <input type="number" id="num15b" placeholder="Second number">
-    <button onclick="document.getElementById('res15').innerText='Result: '+(parseFloat(document.getElementById('num15a').value)*parseFloat(document.getElementById('num15b').value))">Multiply</button>
-    <p id="res15"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise16">
-    <h2>Exercise 16: Divide Numbers</h2>
-    <p>Divide two numbers and show the result.</p>
-    <input type="number" id="num16a" placeholder="Numerator">
-    <input type="number" id="num16b" placeholder="Denominator">
-    <button onclick="var a=parseFloat(document.getElementById('num16a').value); var b=parseFloat(document.getElementById('num16b').value); document.getElementById('res16').innerText=(b!==0?'Result: '+(a/b):'Cannot divide by zero')">Divide</button>
-    <p id="res16"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise17">
-    <h2>Exercise 17: Change Paragraph Color</h2>
-    <p id="para17">Click the button to change my color.</p>
-    <button onclick="document.getElementById('para17').style.color='#'+Math.floor(Math.random()*16777215).toString(16)">Change Color</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise18">
-    <h2>Exercise 18: Add Two Items to List</h2>
-    <ul id="list18">
-        <li>Item A</li>
-        <li>Item B</li>
-    </ul>
-    <button onclick="var l=document.getElementById('list18'); ['Item C','Item D'].forEach(function(item){var li=document.createElement('li'); li.innerText=item; l.appendChild(li);});">Add Two Items</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise19">
-    <h2>Exercise 19: Toggle Image</h2>
-    <img id="img19" src="https://via.placeholder.com/150" alt="Placeholder">
-    <br>
-    <button onclick="var img=document.getElementById('img19'); img.src=img.src.includes('150/ff0000')?'https://via.placeholder.com/150':'https://via.placeholder.com/150/ff0000'">Toggle Image</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise20">
-    <h2>Exercise 20: Random Number Generator</h2>
-    <p>Click the button to generate a random number between 1 and 100.</p>
-    <button onclick="document.getElementById('res20').innerText='Random Number: '+Math.floor(Math.random()*100+1)">Generate</button>
-    <p id="res20"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-
-    <!-- Section 2: CSS Styling (21–40) -->
-    <!-- ==================== Exercises 21-30 ==================== -->
-
-<div class="exercise-page" id="exercise21">
-    <h2>Exercise 21: Change Background Color</h2>
-    <p>Click the button to change background color.</p>
-    <button onclick="document.body.style.background='#'+Math.floor(Math.random()*16777215).toString(16)">Change Background</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise22">
-    <h2>Exercise 22: Show Alert Message</h2>
-    <button onclick="alert('Hello! This is Exercise 22')">Click Me</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise23">
-    <h2>Exercise 23: Add Item to List</h2>
-    <ul id="list23">
-        <li>Apple</li>
-        <li>Banana</li>
-    </ul>
-    <button onclick="var li=document.createElement('li'); li.innerText='Cherry'; document.getElementById('list23').appendChild(li);">Add Item</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise24">
-    <h2>Exercise 24: Hide Paragraph</h2>
-    <p id="para24">This paragraph can be hidden.</p>
-    <button onclick="document.getElementById('para24').style.display='none'">Hide Paragraph</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise25">
-    <h2>Exercise 25: Change Text Content</h2>
-    <p id="para25">Old Text</p>
-    <button onclick="document.getElementById('para25').innerText='New Text'">Change Text</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise26">
-    <h2>Exercise 26: Toggle Paragraph Visibility</h2>
-    <p id="para26">Toggle my visibility</p>
-    <button onclick="var p=document.getElementById('para26'); p.style.display=(p.style.display==='none'?'block':'none')">Toggle</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise27">
-    <h2>Exercise 27: Display Prompt Input</h2>
-    <button onclick="document.getElementById('res27').innerText=prompt('Enter something:')">Enter Text</button>
-    <p id="res27"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise28">
-    <h2>Exercise 28: Change Font Color Randomly</h2>
-    <p id="para28">Click the button to change my color</p>
-    <button onclick="document.getElementById('para28').style.color='#'+Math.floor(Math.random()*16777215).toString(16)">Change Color</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise29">
-    <h2>Exercise 29: Count Characters</h2>
-    <input type="text" id="input29" placeholder="Type something">
-    <button onclick="document.getElementById('res29').innerText='Characters: '+document.getElementById('input29').value.length">Count</button>
-    <p id="res29"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise30">
-    <h2>Exercise 30: Sum Two Numbers</h2>
-    <input type="number" id="num30a" placeholder="First number">
-    <input type="number" id="num30b" placeholder="Second number">
-    <button onclick="document.getElementById('res30').innerText='Sum: '+(parseFloat(document.getElementById('num30a').value)+parseFloat(document.getElementById('num30b').value))">Calculate Sum</button>
-    <p id="res30"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise31">
-    <h2>Exercise 31: Multiply Two Numbers</h2>
-    <input type="number" id="num31a" placeholder="First number">
-    <input type="number" id="num31b" placeholder="Second number">
-    <button onclick="document.getElementById('res31').innerText='Product: '+(parseFloat(document.getElementById('num31a').value)*parseFloat(document.getElementById('num31b').value))">Multiply</button>
-    <p id="res31"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise32">
-    <h2>Exercise 32: Divide Two Numbers</h2>
-    <input type="number" id="num32a" placeholder="Dividend">
-    <input type="number" id="num32b" placeholder="Divisor">
-    <button onclick="document.getElementById('res32').innerText='Quotient: '+(parseFloat(document.getElementById('num32a').value)/parseFloat(document.getElementById('num32b').value))">Divide</button>
-    <p id="res32"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise33">
-    <h2>Exercise 33: Square a Number</h2>
-    <input type="number" id="num33" placeholder="Enter a number">
-    <button onclick="document.getElementById('res33').innerText='Square: '+Math.pow(parseFloat(document.getElementById('num33').value),2)">Square</button>
-    <p id="res33"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise34">
-    <h2>Exercise 34: Convert Celsius to Fahrenheit</h2>
-    <input type="number" id="celsius34" placeholder="Celsius">
-    <button onclick="document.getElementById('res34').innerText='Fahrenheit: '+(parseFloat(document.getElementById('celsius34').value)*9/5+32)">Convert</button>
-    <p id="res34"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise35">
-    <h2>Exercise 35: Convert Fahrenheit to Celsius</h2>
-    <input type="number" id="fahrenheit35" placeholder="Fahrenheit">
-    <button onclick="document.getElementById('res35').innerText='Celsius: '+((parseFloat(document.getElementById('fahrenheit35').value)-32)*5/9)">Convert</button>
-    <p id="res35"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise36">
-    <h2>Exercise 36: Generate Random Number</h2>
-    <button onclick="document.getElementById('res36').innerText='Random Number: '+Math.floor(Math.random()*100+1)">Generate</button>
-    <p id="res36"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise37">
-    <h2>Exercise 37: Reverse Text</h2>
-    <input type="text" id="text37" placeholder="Enter text">
-    <button onclick="document.getElementById('res37').innerText='Reversed: '+document.getElementById('text37').value.split('').reverse().join('')">Reverse</button>
-    <p id="res37"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise38">
-    <h2>Exercise 38: Capitalize First Letter</h2>
-    <input type="text" id="text38" placeholder="Enter text">
-    <button onclick="var t=document.getElementById('text38').value; document.getElementById('res38').innerText=t.charAt(0).toUpperCase()+t.slice(1)">Capitalize</button>
-    <p id="res38"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise39">
-    <h2>Exercise 39: Count Words</h2>
-    <input type="text" id="text39" placeholder="Enter text">
-    <button onclick="document.getElementById('res39').innerText='Word Count: '+document.getElementById('text39').value.trim().split(/\s+/).length">Count Words</button>
-    <p id="res39"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise40">
-    <h2>Exercise 40: Check Even or Odd</h2>
-    <input type="number" id="num40" placeholder="Enter a number">
-    <button onclick="document.getElementById('res40').innerText=(parseInt(document.getElementById('num40').value)%2===0?'Even':'Odd')">Check</button>
-    <p id="res40"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-    <!-- Section 3: JavaScript Practice (41–60) -->
-<div class="exercise-page" id="exercise41">
-    <h2>Exercise 41: Calculate Factorial</h2>
-    <input type="number" id="num41" placeholder="Enter a number">
-    <button onclick="let n=parseInt(document.getElementById('num41').value),f=1; for(let i=2;i<=n;i++){f*=i;} document.getElementById('res41').innerText='Factorial: '+f;">Calculate</button>
-    <p id="res41"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise42">
-    <h2>Exercise 42: Find Maximum of Two Numbers</h2>
-    <input type="number" id="num42a" placeholder="First number">
-    <input type="number" id="num42b" placeholder="Second number">
-    <button onclick="document.getElementById('res42').innerText='Maximum: '+Math.max(parseFloat(document.getElementById('num42a').value),parseFloat(document.getElementById('num42b').value))">Find Max</button>
-    <p id="res42"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise43">
-    <h2>Exercise 43: Find Minimum of Two Numbers</h2>
-    <input type="number" id="num43a" placeholder="First number">
-    <input type="number" id="num43b" placeholder="Second number">
-    <button onclick="document.getElementById('res43').innerText='Minimum: '+Math.min(parseFloat(document.getElementById('num43a').value),parseFloat(document.getElementById('num43b').value))">Find Min</button>
-    <p id="res43"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise44">
-    <h2>Exercise 44: Generate Multiplication Table</h2>
-    <input type="number" id="num44" placeholder="Enter a number">
-    <button onclick="var n=parseInt(document.getElementById('num44').value),res=''; for(let i=1;i<=10;i++){res+=n+' × '+i+' = '+(n*i)+'\n';} document.getElementById('res44').innerText=res;">Generate</button>
-    <pre id="res44"></pre>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise45">
-    <h2>Exercise 45: Create Dropdown</h2>
-    <select>
-        <option>Option 1</option>
-        <option>Option 2</option>
-        <option>Option 3</option>
-    </select>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise46">
-    <h2>Exercise 46: Create Checkbox</h2>
-    <label><input type="checkbox"> Checkbox 1</label><br>
-    <label><input type="checkbox"> Checkbox 2</label>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise47">
-    <h2>Exercise 47: Create Radio Buttons</h2>
-    <label><input type="radio" name="r1"> Option A</label><br>
-    <label><input type="radio" name="r1"> Option B</label>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise48">
-    <h2>Exercise 48: Change Image Source</h2>
-    <img id="img48" src="https://via.placeholder.com/150" alt="Placeholder">
-    <br>
-    <button onclick="document.getElementById('img48').src='https://via.placeholder.com/150/FF0000'">Change Image</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise49">
-    <h2>Exercise 49: Add Table Row</h2>
-    <table border="1" id="table49">
-        <tr><th>Name</th><th>Age</th></tr>
-        <tr><td>John</td><td>25</td></tr>
-    </table>
-    <button onclick="var row=document.getElementById('table49').insertRow(); row.insertCell(0).innerText='Jane'; row.insertCell(1).innerText='30';">Add Row</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise50">
-    <h2>Exercise 50: Remove Table Row</h2>
-    <table border="1" id="table50">
-        <tr><th>Name</th><th>Age</th></tr>
-        <tr><td>John</td><td>25</td></tr>
-        <tr><td>Jane</td><td>30</td></tr>
-    </table>
-    <button onclick="document.getElementById('table50').deleteRow(-1)">Remove Last Row</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-    <!-- ==================== Exercises 51-60 ==================== -->
-
-<div class="exercise-page" id="exercise51">
-    <h2>Exercise 51: Show Current Date and Time</h2>
-    <button onclick="document.getElementById('res51').innerText=new Date()">Show Date & Time</button>
-    <p id="res51"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise52">
-    <h2>Exercise 52: Change Background Color</h2>
-    <button onclick="document.body.style.backgroundColor='#FFD700'">Change Color</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise53">
-    <h2>Exercise 53: Hide an Element</h2>
-    <p id="text53">This text can be hidden.</p>
-    <button onclick="document.getElementById('text53').style.display='none'">Hide Text</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise54">
-    <h2>Exercise 54: Show an Alert</h2>
-    <button onclick="alert('This is an alert!')">Show Alert</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise55">
-    <h2>Exercise 55: Toggle Visibility</h2>
-    <p id="text55">Toggle my visibility.</p>
-    <button onclick="var t=document.getElementById('text55'); t.style.display=(t.style.display==='none'?'block':'none')">Toggle</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise56">
-    <h2>Exercise 56: Change Text Color</h2>
-    <p id="text56">Change my color.</p>
-    <button onclick="document.getElementById('text56').style.color='blue'">Change Color</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise57">
-    <h2>Exercise 57: Append Text</h2>
-    <p id="text57">Hello</p>
-    <button onclick="document.getElementById('text57').innerText+=' World!'">Append</button>
-    <br><br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise58">
-    <h2>Exercise 58: Sum of Array Elements</h2>
-    <script>
-        var arr58=[2,4,6,8,10];
-    </script>
-    <button onclick="document.getElementById('res58').innerText='Sum: '+arr58.reduce((a,b)=>a+b,0)">Calculate Sum</button>
-    <p id="res58"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise59">
-    <h2>Exercise 59: Find Maximum in Array</h2>
-    <script>
-        var arr59=[5,12,7,20,3];
-    </script>
-    <button onclick="document.getElementById('res59').innerText='Maximum: '+Math.max(...arr59)">Find Max</button>
-    <p id="res59"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-<div class="exercise-page" id="exercise60">
-    <h2>Exercise 60: Find Minimum in Array</h2>
-    <script>
-        var arr60=[5,12,7,20,3];
-    </script>
-    <button onclick="document.getElementById('res60').innerText='Minimum: '+Math.min(...arr60)">Find Min</button>
-    <p id="res60"></p>
-    <br>
-    <button onclick="showDashboard()">Back to Dashboard</button>
-</div>
-
-</div>
-<footer>
-    <p>Created by Mamadziyoev Murtuzo</p>
-</footer>
-
-<style>
-/* ...existing code... */
-footer {
-    background: #23272f;
-    color: #eaeaea;
-    text-align: center;
-    padding: 18px 0;
-    font-size: 1.1rem;
-    border-top: 1px solid #2c3240;
-    margin-top: 40px;
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 -2px 12px rgba(0,0,0,0.12);
+        <div class="exercise-page" id="exercise3">
+            <h2>Exercise 3: Insert an Image</h2>
+            <img src="https://via.placeholder.com/150" alt="Sample Image">
+            <p>Image with alt text: "Sample Image"</p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise4">
+            <h2>Exercise 4: Create a List</h2>
+            <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+            </ul>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise5">
+            <h2>Exercise 5: Add a Link</h2>
+            <a href="https://www.example.com" target="_blank" aria-label="Visit Example.com">Visit Example.com</a>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise6">
+            <h2>Exercise 6: HTML Comment</h2>
+            <pre>
+                &lt;!-- This HTML document demonstrates basic HTML elements --&gt;
+            </pre>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise7">
+            <h2>Exercise 7: Add a Table</h2>
+            <table>
+                <tr>
+                    <th>Column 1</th>
+                    <th>Column 2</th>
+                </tr>
+                <tr>
+                    <td>Row 1, Col 1</td>
+                    <td>Row 1, Col 2</td>
+                </tr>
+                <tr>
+                    <td>Row 2, Col 1</td>
+                    <td>Row 2, Col 2</td>
+                </tr>
+            </table>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise8">
+            <h2>Exercise 8: Create a Button</h2>
+            <button onclick="alert('Button clicked!')" aria-label="Click Me Button">Click Me!</button>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise9">
+            <h2>Exercise 9: Format Text</h2>
+            <p>This is a <b>bold</b> word and this is an <i>italic</i> word in a paragraph.</p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise10">
+            <h2>Exercise 10: Create a Form</h2>
+            <form onsubmit="event.preventDefault(); alert('Form submitted!');">
+                <label for="name10">Name:</label>
+                <input type="text" id="name10" name="name" aria-label="Name input">
+                <input type="submit" value="Submit" aria-label="Submit form">
+            </form>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise11">
+            <h2>Exercise 11: Add Metadata</h2>
+            <pre>
+                &lt;meta charset="UTF-8"&gt;
+                &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+            </pre>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise12">
+            <h2>Exercise 12: Header and Footer</h2>
+            <header>
+                <h1>Header Section</h1>
+            </header>
+            <footer>
+                <h3>Footer Section</h3>
+            </footer>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise13">
+            <h2>Exercise 13: Add a Line Break</h2>
+            <p>This is the first line.<br>This is the second line after a break.</p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise14">
+            <h2>Exercise 14: Ordered List</h2>
+            <ol>
+                <li>Step 1: Gather ingredients</li>
+                <li>Step 2: Mix ingredients</li>
+                <li>Step 3: Preheat oven</li>
+                <li>Step 4: Bake for 30 minutes</li>
+                <li>Step 5: Let cool and serve</li>
+            </ol>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise15">
+            <h2>Exercise 15: Navigation Menu</h2>
+            <nav>
+                <ul>
+                    <li><a href="#" aria-label="Home page">Home</a></li>
+                    <li><a href="#" aria-label="About page">About</a></li>
+                    <li><a href="#" aria-label="Contact page">Contact</a></li>
+                </ul>
+            </nav>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise16">
+            <h2>Exercise 16: Strong Tag</h2>
+            <p>This is <strong>important</strong> text in a paragraph.</p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise17">
+            <h2>Exercise 17: Horizontal Line</h2>
+            <hr>
+            <p>Text after the horizontal line.</p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise18">
+            <h2>Exercise 18: Set Language</h2>
+            <pre>
+                &lt;html lang="en"&gt;
+            </pre>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise19">
+            <h2>Exercise 19: Definition List</h2>
+            <dl>
+                <dt>HTML</dt>
+                <dd>HyperText Markup Language</dd>
+                <dt>CSS</dt>
+                <dd>Cascading Style Sheets</dd>
+                <dt>JavaScript</dt>
+                <dd>Programming language for the web</dd>
+            </dl>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise20">
+            <h2>Exercise 20: Add a Video</h2>
+            <video width="320" height="240" controls>
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <!-- Section 2: CSS Styling (21–40) -->
+        <div class="exercise-page" id="exercise21">
+            <h2>Exercise 21: Create a Multipage Website</h2>
+            <p>
+                Build a basic website with three pages: Home, About, and Contact.<br>
+                Add navigation links to switch between these pages.<br>
+                <b>Example:</b>
+                <nav>
+                    <a href="#" aria-label="Home page">Home</a> |
+                    <a href="#" aria-label="About page">About</a> |
+                    <a href="#" aria-label="Contact page">Contact</a>
+                </nav>
+            </p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise22">
+            <h2>Exercise 22: Create a Contact Form</h2>
+            <form onsubmit="event.preventDefault(); alert('Form submitted!');">
+                <label for="name22">Name:</label>
+                <input type="text" id="name22" name="name" aria-label="Name input"><br>
+                <label for="email22">Email:</label>
+                <input type="email" id="email22" name="email" aria-label="Email input"><br>
+                <label for="subject22">Subject:</label>
+                <input type="text" id="subject22" name="subject" aria-label="Subject input"><br>
+                <label for="message22">Message:</label>
+                <textarea id="message22" name="message" aria-label="Message input"></textarea><br>
+                <button type="submit" aria-label="Send form">Send</button>
+            </form>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise23">
+            <h2>Exercise 23: Use Media Queries</h2>
+            <p>
+                Add media queries to change the background color of the webpage when viewed on devices with a width less than 600px.<br>
+                <pre>
+@media (max-width: 600px) {
+    body { background: #333; }
 }
-/* ...existing code... */
-</style>
+                </pre>
+            </p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
 
-<!-- ...existing code... -->
+        <div class="exercise-page" id="exercise24">
+            <h2>Exercise 24: Add a Video Player</h2>
+            <iframe width="320" height="180" src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=1" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
 
-<script>
-    function showExercise(n) {
-        document.getElementById("dashboard").style.display = "none";
-        const pages = document.querySelectorAll(".exercise-page");
-        pages.forEach(page => page.classList.remove("active"));
-        const exercise = document.getElementById("exercise" + n);
-        if (exercise) {
-            exercise.classList.add("active");
+        <div class="exercise-page" id="exercise25">
+            <h2>Exercise 25: Responsive Image Gallery</h2>
+            <style>
+                .gallery {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                    gap: 10px;
+                }
+            </style>
+            <div class="gallery">
+                <figure>
+                    <img src="https://via.placeholder.com/100" alt="Gallery Image 1">
+                    <figcaption>Image 1</figcaption>
+                </figure>
+                <figure>
+                    <img src="https://via.placeholder.com/100" alt="Gallery Image 2">
+                    <figcaption>Image 2</figcaption>
+                </figure>
+                <figure>
+                    <img src="https://via.placeholder.com/100" alt="Gallery Image 3">
+                    <figcaption>Image 3</figcaption>
+                </figure>
+                <figure>
+                    <img src="https://via.placeholder.com/100" alt="Gallery Image 4">
+                    <figcaption>Image 4</figcaption>
+                </figure>
+            </div>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise26">
+            <h2>Exercise 26: Create a Dropdown Menu</h2>
+            <select aria-label="Select an option">
+                <option>Select an option</option>
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+            </select>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise27">
+            <h2>Exercise 27: Use Fieldset and Legend Tags</h2>
+            <form onsubmit="event.preventDefault(); alert('Form submitted!');">
+                <fieldset>
+                    <legend>Personal Info</legend>
+                    <label for="name27">Name:</label>
+                    <input type="text" id="name27" name="name" aria-label="Name input">
+                    <label for="email27">Email:</label>
+                    <input type="email" id="email27" name="email" aria-label="Email input">
+                    <input type="submit" value="Submit" aria-label="Submit form">
+                </fieldset>
+            </form>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise28">
+            <h2>Exercise 28: Add Audio to Webpage</h2>
+            <audio controls>
+                <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise29">
+            <h2>Exercise 29: Create a Table with Caption</h2>
+            <table>
+                <caption>Student Grades</caption>
+                <tr>
+                    <th>Name</th>
+                    <th>Grade</th>
+                    <th>Subject</th>
+                </tr>
+                <tr>
+                    <td>Alice</td>
+                    <td>A</td>
+                    <td>Math</td>
+                </tr>
+                <tr>
+                    <td>Bob</td>
+                    <td>B</td>
+                    <td>Science</td>
+                </tr>
+                <tr>
+                    <td>Carol</td>
+                    <td>A</td>
+                    <td>English</td>
+                </tr>
+            </table>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise30">
+            <h2>Exercise 30: Use the iframe Tag</h2>
+            <iframe src="https://www.google.com/maps" width="320" height="180" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise31">
+            <h2>Exercise 31: Multiply Two Numbers</h2>
+            <input type="number" id="num31a" placeholder="First number" aria-label="First number">
+            <input type="number" id="num31b" placeholder="Second number" aria-label="Second number">
+            <button onclick="multiplyNumbers(31)">Multiply</button>
+            <p id="res31"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise32">
+            <h2>Exercise 32: Divide Two Numbers</h2>
+            <input type="number" id="num32a" placeholder="Dividend" aria-label="Dividend">
+            <input type="number" id="num32b" placeholder="Divisor" aria-label="Divisor">
+            <button onclick="divideNumbers(32)">Divide</button>
+            <p id="res32"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise33">
+            <h2>Exercise 33: Square a Number</h2>
+            <input type="number" id="num33" placeholder="Enter a number" aria-label="Number to square">
+            <button onclick="squareNumber(33)">Square</button>
+            <p id="res33"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise34">
+            <h2>Exercise 34: Convert Celsius to Fahrenheit</h2>
+            <input type="number" id="celsius34" placeholder="Celsius" aria-label="Celsius temperature">
+            <button onclick="celsiusToFahrenheit(34)">Convert</button>
+            <p id="res34"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise35">
+            <h2>Exercise 35: Convert Fahrenheit to Celsius</h2>
+            <input type="number" id="fahrenheit35" placeholder="Fahrenheit" aria-label="Fahrenheit temperature">
+            <button onclick="fahrenheitToCelsius(35)">Convert</button>
+            <p id="res35"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise36">
+            <h2>Exercise 36: Generate Random Number</h2>
+            <button onclick="generateRandom(36)" aria-label="Generate random number">Generate</button>
+            <p id="res36"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise37">
+            <h2>Exercise 37: Reverse Text</h2>
+            <input type="text" id="text37" placeholder="Enter text" aria-label="Text to reverse">
+            <button onclick="reverseText(37)">Reverse</button>
+            <p id="res37"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise38">
+            <h2>Exercise 38: Capitalize First Letter</h2>
+            <input type="text" id="text38" placeholder="Enter text" aria-label="Text to capitalize">
+            <button onclick="capitalizeText(38)">Capitalize</button>
+            <p id="res38"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise39">
+            <h2>Exercise 39: Count Words</h2>
+            <input type="text" id="text39" placeholder="Enter text" aria-label="Text to count words">
+            <button onclick="countWords(39)">Count Words</button>
+            <p id="res39"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise40">
+            <h2>Exercise 40: Check Even or Odd</h2>
+            <input type="number" id="num40" placeholder="Enter a number" aria-label="Number to check">
+            <button onclick="checkEvenOdd(40)">Check</button>
+            <p id="res40"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <!-- Section 3: JavaScript Practice (41–60) -->
+        <div class="exercise-page" id="exercise41">
+            <h2>Exercise 41: Calculate Factorial</h2>
+            <input type="number" id="num41" placeholder="Enter a number" aria-label="Number for factorial">
+            <button onclick="calculateFactorial(41)">Calculate</button>
+            <p id="res41"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise42">
+            <h2>Exercise 42: Find Maximum of Two Numbers</h2>
+            <input type="number" id="num42a" placeholder="First number" aria-label="First number">
+            <input type="number" id="num42b" placeholder="Second number" aria-label="Second number">
+            <button onclick="findMax(42)">Find Max</button>
+            <p id="res42"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise43">
+            <h2>Exercise 43: Find Minimum of Two Numbers</h2>
+            <input type="number" id="num43a" placeholder="First number" aria-label="First number">
+            <input type="number" id="num43b" placeholder="Second number" aria-label="Second number">
+            <button onclick="findMin(43)">Find Min</button>
+            <p id="res43"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise44">
+            <h2>Exercise 44: Generate Multiplication Table</h2>
+            <input type="number" id="num44" placeholder="Enter a number" aria-label="Number for multiplication table">
+            <button onclick="generateMultiplicationTable(44)">Generate</button>
+            <pre id="res44"></pre>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise45">
+            <h2>Exercise 45: Create Dropdown</h2>
+            <select aria-label="Select an option">
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+            </select>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise46">
+            <h2>Exercise 46: Create Checkbox</h2>
+            <label><input type="checkbox" aria-label="Checkbox 1"> Checkbox 1</label><br>
+            <label><input type="checkbox" aria-label="Checkbox 2"> Checkbox 2</label>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise47">
+            <h2>Exercise 47: Create Radio Buttons</h2>
+            <label><input type="radio" name="r47" aria-label="Option A"> Option A</label><br>
+            <label><input type="radio" name="r47" aria-label="Option B"> Option B</label>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise48">
+            <h2>Exercise 48: Change Image Source</h2>
+            <img id="img48" src="https://via.placeholder.com/150" alt="Placeholder">
+            <button onclick="document.getElementById('img48').src='https://via.placeholder.com/150/FF0000'" aria-label="Change image source">Change Image</button>
+            <button onclick="document.getElementById('img48').src='https://via.placeholder.com/150'" aria-label="Reset image source">Reset Image</button>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise49">
+            <h2>Exercise 49: Add Table Row</h2>
+            <table id="table49">
+                <tr><th>Name</th><th>Age</th></tr>
+                <tr><td>John</td><td>25</td></tr>
+            </table>
+            <button onclick="addTableRow(49)" aria-label="Add table row">Add Row</button>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise50">
+            <h2>Exercise 50: Remove Table Row</h2>
+            <table id="table50">
+                <tr><th>Name</th><th>Age</th></tr>
+                <tr><td>John</td><td>25</td></tr>
+                <tr><td>Jane</td><td>30</td></tr>
+            </table>
+            <button onclick="removeTableRow(50)" aria-label="Remove last table row">Remove Last Row</button>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise51">
+            <h2>Exercise 51: Show Current Date and Time</h2>
+            <button onclick="showDateTime(51)" aria-label="Show current date and time">Show Date & Time</button>
+            <p id="res51"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise52">
+            <h2>Exercise 52: Change Background Color</h2>
+            <button onclick="document.body.style.backgroundColor='#FFD700'" aria-label="Change background color">Change Color</button>
+            <button onclick="document.body.style.backgroundColor='#181c24'" aria-label="Reset background color">Reset Color</button>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise53">
+            <h2>Exercise 53: Hide an Element</h2>
+            <p id="text53">This text can be hidden.</p>
+            <button onclick="document.getElementById('text53').style.display='none'" aria-label="Hide text">Hide Text</button>
+            <button onclick="document.getElementById('text53').style.display='block'" aria-label="Show text">Show Text</button>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise54">
+            <h2>Exercise 54: Show an Alert</h2>
+            <button onclick="alert('This is an alert!')" aria-label="Show alert">Show Alert</button>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise55">
+            <h2>Exercise 55: Toggle Visibility</h2>
+            <p id="text55">Toggle my visibility.</p>
+            <button onclick="toggleVisibility(55)" aria-label="Toggle text visibility">Toggle</button>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise56">
+            <h2>Exercise 56: Change Text Color</h2>
+            <p id="text56">Change my color.</p>
+            <button onclick="document.getElementById('text56').style.color='blue'" aria-label="Change text color">Change Color</button>
+            <button onclick="document.getElementById('text56').style.color='#eaeaea'" aria-label="Reset text color">Reset Color</button>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise57">
+            <h2>Exercise 57: Append Text</h2>
+            <p id="text57">Hello</p>
+            <button onclick="appendText(57)" aria-label="Append text">Append</button>
+            <button onclick="document.getElementById('text57').innerText='Hello'" aria-label="Reset text">Reset Text</button>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise58">
+            <h2>Exercise 58: Sum of Array Elements</h2>
+            <script>
+                var arr58 = [2, 4, 6, 8, 10];
+            </script>
+            <button onclick="sumArray(58)" aria-label="Calculate array sum">Calculate Sum</button>
+            <p id="res58"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise59">
+            <h2>Exercise 59: Find Maximum in Array</h2>
+            <script>
+                var arr59 = [5, 12, 7, 20, 3];
+            </script>
+            <button onclick="findArrayMax(59)" aria-label="Find maximum in array">Find Max</button>
+            <p id="res59"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+
+        <div class="exercise-page" id="exercise60">
+            <h2>Exercise 60: Find Minimum in Array</h2>
+            <script>
+                var arr60 = [5, 12, 7, 20, 3];
+            </script>
+            <button onclick="findArrayMin(60)" aria-label="Find minimum in array">Find Min</button>
+            <p id="res60"></p>
+            <button onclick="showDashboard()">Back to Dashboard</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Created by Mamadziyoev Murtuzo</p>
+    </footer>
+
+    <script>
+        function showExercise(n) {
+            document.getElementById("dashboard").style.display = "none";
+            const pages = document.querySelectorAll(".exercise-page");
+            pages.forEach(page => page.classList.remove("active"));
+            const exercise = document.getElementById("exercise" + n);
+            if (exercise) {
+                exercise.classList.add("active");
+            }
         }
-    }
 
-    function showDashboard() {
-        const pages = document.querySelectorAll(".exercise-page");
-        pages.forEach(page => page.classList.remove("active"));
-        document.getElementById("dashboard").style.display = "block";
-    }
-</script>
+        function showDashboard() {
+            const pages = document.querySelectorAll(".exercise-page");
+            pages.forEach(page => page.classList.remove("active"));
+            document.getElementById("dashboard").style.display = "block";
+        }
 
+        function multiplyNumbers(ex) {
+            const a = parseFloat(document.getElementById(`num${ex}a`).value);
+            const b = parseFloat(document.getElementById(`num${ex}b`).value);
+            document.getElementById(`res${ex}`).innerText = isNaN(a) || isNaN(b) ? "Please enter valid numbers" : `Product: ${a * b}`;
+        }
+
+        function divideNumbers(ex) {
+            const a = parseFloat(document.getElementById(`num${ex}a`).value);
+            const b = parseFloat(document.getElementById(`num${ex}b`).value);
+            if (isNaN(a) || isNaN(b)) {
+                document.getElementById(`res${ex}`).innerText = "Please enter valid numbers";
+            } else if (b === 0) {
+                document.getElementById(`res${ex}`).innerText = "Cannot divide by zero";
+            } else {
+                document.getElementById(`res${ex}`).innerText = `Quotient: ${a / b}`;
+            }
+        }
+
+        function squareNumber(ex) {
+            const num = parseFloat(document.getElementById(`num${ex}`).value);
+            document.getElementById(`res${ex}`).innerText = isNaN(num) ? "Please enter a valid number" : `Square: ${num * num}`;
+        }
+
+        function celsiusToFahrenheit(ex) {
+            const celsius = parseFloat(document.getElementById(`celsius${ex}`).value);
+            document.getElementById(`res${ex}`).innerText = isNaN(celsius) ? "Please enter a valid number" : `Fahrenheit: ${(celsius * 9/5 + 32).toFixed(2)}`;
+        }
+
+        function fahrenheitToCelsius(ex) {
+            const fahrenheit = parseFloat(document.getElementById(`fahrenheit${ex}`).value);
+            document.getElementById(`res${ex}`).innerText = isNaN(fahrenheit) ? "Please enter a valid number" : `Celsius: ${((fahrenheit - 32) * 5/9).toFixed(2)}`;
+        }
+
+        function generateRandom(ex) {
+            document.getElementById(`res${ex}`).innerText = `Random Number: ${Math.floor(Math.random() * 100 + 1)}`;
+        }
+
+        function reverseText(ex) {
+            const text = document.getElementById(`text${ex}`).value;
+            document.getElementById(`res${ex}`).innerText = text ? `Reversed: ${text.split('').reverse().join('')}` : "Please enter text";
+        }
+
+        function capitalizeText(ex) {
+            const text = document.getElementById(`text${ex}`).value;
+            document.getElementById(`res${ex}`).innerText = text ? `Capitalized: ${text.charAt(0).toUpperCase() + text.slice(1)}` : "Please enter text";
+        }
+
+        function countWords(ex) {
+            const text = document.getElementById(`text${ex}`).value.trim();
+            document.getElementById(`res${ex}`).innerText = text ? `Word Count: ${text.split(/\s+/).length}` : "Please enter text";
+        }
+
+        function checkEvenOdd(ex) {
+            const num = parseInt(document.getElementById(`num${ex}`).value);
+            document.getElementById(`res${ex}`).innerText = isNaN(num) ? "Please enter a valid number" : (num % 2 === 0 ? "Even" : "Odd");
+        }
+
+        function calculateFactorial(ex) {
+            const num = parseInt(document.getElementById(`num${ex}`).value);
+            if (isNaN(num) || num < 0) {
+                document.getElementById(`res${ex}`).innerText = "Please enter a valid non-negative number";
+            } else {
+                let factorial = 1;
+                for (let i = 2; i <= num; i++) {
+                    factorial *= i;
+                }
+                document.getElementById(`res${ex}`).innerText = `Factorial: ${factorial}`;
+            }
+        }
+
+        function findMax(ex) {
+            const a = parseFloat(document.getElementById(`num${ex}a`).value);
+            const b = parseFloat(document.getElementById(`num${ex}b`).value);
+            document.getElementById(`res${ex}`).innerText = isNaN(a) || isNaN(b) ? "Please enter valid numbers" : `Maximum: ${Math.max(a, b)}`;
+        }
+
+        function findMin(ex) {
+            const a = parseFloat(document.getElementById(`num${ex}a`).value);
+            const b = parseFloat(document.getElementById(`num${ex}b`).value);
+            document.getElementById(`res${ex}`).innerText = isNaN(a) || isNaN(b) ? "Please enter valid numbers" : `Minimum: ${Math.min(a, b)}`;
+        }
+
+        function generateMultiplicationTable(ex) {
+            const num = parseInt(document.getElementById(`num${ex}`).value);
+            if (isNaN(num)) {
+                document.getElementById(`res${ex}`).innerText = "Please enter a valid number";
+            } else {
+                let result = "";
+                for (let i = 1; i <= 10; i++) {
+                    result += `${num} × ${i} = ${num * i}\n`;
+                }
+                document.getElementById(`res${ex}`).innerText = result;
+            }
+        }
+
+        function toggleVisibility(ex) {
+            const text = document.getElementById(`text${ex}`);
+            text.style.display = text.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function appendText(ex) {
+            document.getElementById(`text${ex}`).innerText += ' World!';
+        }
+
+        function sumArray(ex) {
+            const sum = arr58.reduce((a, b) => a + b, 0);
+            document.getElementById(`res${ex}`).innerText = `Sum: ${sum}`;
+        }
+
+        function findArrayMax(ex) {
+            document.getElementById(`res${ex}`).innerText = `Maximum: ${Math.max(...arr59)}`;
+        }
+
+        function findArrayMin(ex) {
+            document.getElementById(`res${ex}`).innerText = `Minimum: ${Math.min(...arr60)}`;
+        }
+
+        function addTableRow(ex) {
+            const table = document.getElementById(`table${ex}`);
+            const row = table.insertRow();
+            row.insertCell(0).innerText = 'Jane';
+            row.insertCell(1).innerText = '30';
+        }
+
+        function removeTableRow(ex) {
+            const table = document.getElementById(`table${ex}`);
+            if (table.rows.length > 1) {
+                table.deleteRow(-1);
+            } else {
+                alert('Cannot remove the header row!');
+            }
+        }
+    </script>
 </body>
 </html>
