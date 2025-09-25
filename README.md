@@ -14,7 +14,7 @@ It features a modern dark theme, interactive assignment cards, and individual ex
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/your-repo-name.git
+    git clone https://github.com/MurtuzoPM/Lab-Project-2.git
     ```
 2. Open `index.html` in your browser.
 
